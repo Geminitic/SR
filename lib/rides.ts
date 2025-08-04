@@ -32,6 +32,22 @@ export interface RideWithDetails extends Ride {
   }
 }
 
+export const calculateRideFare = (
+  distance: number,
+  type: 'volunteer' | 'weekday' | 'return'
+): number => {
+  switch (type) {
+    case 'volunteer':
+      return Math.max(0, distance * 0)
+    case 'weekday':
+      return Math.max(5, distance * 1.75)
+    case 'return':
+      return Math.max(10, distance * 2.25)
+    default:
+      return 5
+  }
+}
+
 export class RideService {
   async createRide(rideData: CreateRideRequest): Promise<Ride> {
     const { data: { user } } = await supabase.auth.getUser()
